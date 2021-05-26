@@ -12,30 +12,40 @@
     <div id="app" data-v-app>
         <div class="container">
             <div class="text-end mt-4">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">
+                <button @click="processProductMethod($event,'')" data-type="addProduct" type="button"
+                    class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">
                     建立新的產品
                 </button>
             </div>
             <table class="table mt-4">
                 <thead>
                     <tr>
-                        <th class="w120-">分類</th>
-                        <th class="w120-">產品名稱</th>
-                        <th class="w120-">原價</th>
-                        <th class="w120-">售價</th>
-                        <th class="w120-">是否啟用</th>
-                        <th class="w120-">編輯</th>
+                        <th class="w120">分類</th>
+                        <th class="w120">產品名稱</th>
+                        <th class="w120">原價</th>
+                        <th class="w120">售價</th>
+                        <th class="w120">是否啟用</th>
+                        <th class="w120">編輯</th>
                     </tr>
                 </thead>
                 <tr v-for="(item,key) in products">
-                    <td class="w120-">{{item.category}}</td>
-                    <td class="w120-">{{item.title}}</td>
-                    <td class="w120-">NT${{item.origin_price}}</td>
-                    <td class="w120-">NT${{item.price}}</td>
-                    <td class="w120-"><template v-if="item.is_enabled==1"><span class="text-success">啟用</span></template>
+                    <td class="w120">{{item.category}}</td>
+                    <td class="w120">{{item.title}}</td>
+                    <td class="w120">NT${{item.origin_price}}</td>
+                    <td class="w120">NT${{item.price}}</td>
+                    <td class="w120"><template v-if="item.is_enabled==1"><span class="text-success">啟用</span></template>
                         <template v-else><span>未啟用</span></template>
                     </td>
-                    <td class="w120-">編輯</td>
+                    <td class="w120">
+                        <div class="btn-group">
+                            <button @click="processProductMethod($event,item.id)" data-type="editProduct" type="button"
+                                class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#productModal">編輯</button>
+                            <button @click="processProductMethod($event,item.id)" data-type="delProduct" type="button"
+                                class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#delProductModal">刪除</button>
+                        </div>
+                    </td>
                 </tr>
             </table>
             <!-- Modal -->
@@ -45,8 +55,10 @@
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content border-0">
                         <div class="modal-header bg-dark text-white">
-                            <h5 id="productModalLabel" class="modal-title"><span>新增產品</span></h5><button type="button"
-                                class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h5 id="productModalLabel" class="modal-title"><template
+                                    v-if="processType=='addProduct'"><span>新增產品</span></template><template
+                                    v-if="processType=='editProduct'"><span>編輯產品</span></template></h5><button
+                                type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="row">
@@ -60,39 +72,50 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-8">
-                                    <div class="form-group"><label for="title">標題</label><input id="title" type="text"
-                                            class="form-control" placeholder="請輸入標題"></div>
+                                    <div class="form-group"><label for="title">標題</label><input v-model="tempProduct.data.title"
+                                            id="title" type="text" class="form-control" placeholder="請輸入標題"></div>
                                     <div class="row">
                                         <div class="form-group col-md-6"><label for="category">分類</label><input
-                                                id="category" type="text" class="form-control" placeholder="請輸入分類">
+                                                v-model="tempProduct.data.category" id="category" type="text"
+                                                class="form-control" placeholder="請輸入分類">
                                         </div>
-                                        <div class="form-group col-md-6"><label for="price">單位</label><input id="unit"
-                                                type="text" class="form-control" placeholder="請輸入單位"></div>
+                                        <div class="form-group col-md-6"><label for="price">單位</label><input
+                                                v-model="tempProduct.data.unit" id="unit" type="text" class="form-control"
+                                                placeholder="請輸入單位"></div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6"><label for="origin_price">原價</label><input
-                                                id="origin_price" type="number" min="0" class="form-control"
-                                                placeholder="請輸入原價"></div>
-                                        <div class="form-group col-md-6"><label for="price">售價</label><input id="price"
-                                                type="number" min="0" class="form-control" placeholder="請輸入售價"></div>
+                                                v-model="tempProduct.data.origin_price" id="origin_price" type="number" min="0"
+                                                class="form-control" placeholder="請輸入原價"></div>
+                                        <div class="form-group col-md-6"><label for="price">售價</label><input
+                                                v-model="tempProduct.data.price" id="price" type="number" min="0"
+                                                class="form-control" placeholder="請輸入售價"></div>
                                     </div>
                                     <hr>
                                     <div class="form-group"><label for="description">產品描述</label><textarea
-                                            id="description" type="text" class="form-control"
-                                            placeholder="請輸入產品描述">                  </textarea></div>
-                                    <div class="form-group"><label for="content">說明內容</label><textarea id="description"
-                                            type="text" class="form-control"
+                                            v-model="tempProduct.data.description" id="description" type="text"
+                                            class="form-control" placeholder="請輸入產品描述">                  </textarea>
+                                    </div>
+                                    <div class="form-group"><label for="content">說明內容</label><textarea
+                                            v-model="tempProduct.data.content" id="content" type="text" class="form-control"
                                             placeholder="請輸入說明內容">                  </textarea></div>
                                     <div class="form-group">
-                                        <div class="form-check"><input id="is_enabled" class="form-check-input"
-                                                type="checkbox" true-value="1" false-value="0"><label
-                                                class="form-check-label" for="is_enabled">是否啟用</label></div>
+                                        <div class="form-check"><input v-model="tempProduct.data.is_enabled" id="is_enabled"
+                                                class="form-check-input" type="checkbox" true-value="1"
+                                                false-value="0"><label class="form-check-label"
+                                                for="is_enabled">是否啟用</label></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer"><button type="button" class="btn btn-outline-secondary"
-                                data-bs-dismiss="modal"> 取消 </button><button type="button" class="btn btn-primary"> 確認
+                        <div class="modal-footer"><template v-if="processType=='editProduct'"><button
+                                    @click="cancelProductMethod($event)" data-type="editProduct" type="button"
+                                    class="btn btn-outline-secondary" data-bs-dismiss="modal"> 取消
+                                </button></template><template v-if="processType=='addProduct'"><button
+                                    @click="cancelProductMethod($event)" data-type="addProduct" type="button"
+                                    class="btn btn-outline-secondary" data-bs-dismiss="modal"> 取消
+                                </button></template><button @click="addOrEditProductMethod" type="button"
+                                class="btn btn-primary"> 確認
                             </button></div>
                     </div>
                 </div>
@@ -107,8 +130,9 @@
                                 type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body"> 是否刪除 <strong class="text-danger"></strong> 商品(刪除後將無法恢復)。 </div>
-                        <div class="modal-footer"><button type="button" class="btn btn-outline-secondary"
-                                data-bs-dismiss="modal"> 取消 </button><button type="button" class="btn btn-danger"> 確認刪除
+                        <div class="modal-footer"><button @click="cancelProductMethod($event)" type="button"
+                                class="btn btn-outline-secondary" data-bs-dismiss="modal"> 取消 </button><button
+                                @click="delProductMethod" type="button" class="btn btn-danger"> 確認刪除
                             </button></div>
                     </div>
                 </div>
