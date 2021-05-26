@@ -10,8 +10,8 @@ createApp({
             delProductId: "",
             detailProductId: "",
             processType: "",
-            product: { data: { title: "", category: "", unit: "", origin_price: 0, price: 0, description: "", content: "", is_enabled: "" } },
-            tempProduct: { data: { title: "", category: "", unit: "", origin_price: 0, price: 0, description: "", content: "", is_enabled: "" } }
+            product: { data: { title: "", category: "", unit: "", origin_price: 0, price: 0, description: "", content: "", is_enabled: "", imagesUrl: [] } },
+            tempProduct: { data: { title: "", category: "", unit: "", origin_price: 0, price: 0, description: "", content: "", is_enabled: "", imagesUrl: [] } }
         }
     },
     methods: {
@@ -34,8 +34,7 @@ createApp({
 
         },
         getProductDetailMethod() {//取得單一產品品項內容
-            console.log("wsddw==,",this.detailProductId);
-            console.log("wsddw==,", this.products.filters(item => item.productId == this.detailProductId));
+            this.tempProduct.data = this.products.filter(item => item.id == this.detailProductId)[0];
 
         },
         cancelProductMethod(e) {//取消刪除/編輯/修改單一品項產品(關閉視窗)
@@ -46,9 +45,11 @@ createApp({
                     break;
                 case "editProduct":
                     this.detailProductId = "";
+                    this.tempProduct.data = "";
                     break;
                 case "addProduct":
                     this.detailProductId = "";
+                    this.tempProduct.data = "";
                     break;
                 default:
 
@@ -105,6 +106,7 @@ createApp({
         editProductMethod() {//編輯商品API
             const url = `${apiUri}/${apiPath}/admin/product/${this.detailProductId}`;
             if (this.detailProductId) {
+                this.product = { ...this.tempProduct };
                 //編輯單一商品API
                 axios.put(`${url}`, this.product).then(res => {
                     if (res.data.success) {
@@ -140,6 +142,11 @@ createApp({
                 }
             });
         }
+    },
+    createImages() {
+        console.log("createImages");
+        // this.tempProduct.imagesUrl = [];
+        // this.tempProduct.imagesUrl.push('');
     },
     mounted() {
         //處理產品(新增/編輯)的Modal
