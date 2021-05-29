@@ -3,6 +3,25 @@ const apiUri = "https://vue3-course-api.hexschool.io/api";
 const apiPath = "taonong";
 let productModal = null;
 let delProductModal = null;
+const pageItem = {
+    data() {
+        return {}
+    },
+    template: `<nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Previous"
+          ><span aria-hidden="true">«</span></a
+        >
+      </li>2
+      <li class="page-item disabled">
+        <a class="page-link" href="#" aria-label="Next"
+          ><span aria-hidden="true">»</span></a
+        >
+      </li>
+    </ul>
+  </nav>`
+};
 createApp({
     data() {
         return {
@@ -14,6 +33,10 @@ createApp({
             tempProduct: { data: { title: "", category: "", unit: "", origin_price: 0, price: 0, description: "", content: "", is_enabled: "", imagesUrl: [] } }
         }
     },
+    components: {
+        pageItem
+    }
+    ,
     methods: {
         processProductMethod(e, productId) {
             this.processType = e.target.getAttribute("data-type");
