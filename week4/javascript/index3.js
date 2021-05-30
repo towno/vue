@@ -4,21 +4,29 @@ const apiPath = "taonong";
 let productModal = null;
 let delProductModal = null;
 const pageItem = {
-    props: ['comcurrentPage'],
+    props: ['pagination'],
     dtat() {
-        return { currentPage: 0 }
+        return {}
     },
     created() {
-        this.currentPage = this.comcurrentPage;
+
+    },
+    methods: {
+        emitPrev() {
+            this.$emit('pagePrev');
+        },//頁碼按下上一頁
+        emitNext() {
+            this.$emit('pageNext');
+        },//頁碼按下下一頁
     },
     template: `<nav aria-label="Page navigation example">
     <ul class="pagination">
-      <li class="page-item">
+      <li @click="emitPrev" v-if="pagination.has_pre" class="page-item">
         <a class="page-link" href="#" aria-label="Previous"
           ><span aria-hidden="true">«</span></a
         >
-      </li>{{currentPage}}
-      <li class="page-item disabled">
+      </li><div class="align-center">{{pagination.current_page}}</div>
+      <li @click="emitNext" v-if="pagination.has_next" class="page-item disabled">
         <a class="page-link" href="#" aria-label="Next"
           ><span aria-hidden="true">»</span></a
         >
@@ -35,8 +43,13 @@ const app = createApp({
             processType: "",
             product: { data: { title: "", category: "", unit: "", origin_price: 0, price: 0, description: "", content: "", is_enabled: "", imagesUrl: [] } },
             tempProduct: { data: { title: "", category: "", unit: "", origin_price: 0, price: 0, description: "", content: "", is_enabled: "", imagesUrl: [] } },
-            currentPage: 1,
-            targetPage: 1
+            "pagination": {
+                "total_pages": 1,
+                "current_page": 1,
+                "has_pre": false,
+                "has_next": false,
+                "targetPage": 1//目標頁面
+            }
         }
     },
     methods: {
@@ -100,10 +113,14 @@ const app = createApp({
             }
         },
         getDataMethod() {//取得產品列表
-            const url = `${apiUri}/${apiPath}/admin/products?page=${this.targetPage}`;
+            if (!this.pagination.targetPage) {
+                this.pagination.targetPage = 1;
+            }
+            const url = `${apiUri}/${apiPath}/admin/products?page=${this.pagination.targetPage}`;
             axios.get(`${url}`).then(res => {
                 if (res.data.success) {
                     this.products = res.data.products;
+                    this.pagination = res.data.pagination;
                 } else {
                     alert(res.data.messages);
                     if (res.data.messages == "驗證錯誤, 請重新登入") {
@@ -173,6 +190,14 @@ const app = createApp({
             this.product.data.imagesUrl = [];
             this.tempProduct.data = {};
             this.tempProduct.data.imagesUrl = [];
+        },
+        pageNext() {//按下一頁
+            this.pagination.targetPage = this.pagination.current_page + 1;
+            this.getDataMethod();
+        },
+        pagePrev() {//按上一頁
+            this.pagination.targetPage = this.pagination.current_page - 1;
+            this.getDataMethod();
         }
     },
     createImages() {

@@ -74,7 +74,11 @@
           </tr>
         </table>
         <!-- 頁碼元件 -->
-        <page-item :comcurrent-page="currentPage"></page-item>
+        <page-item
+          :pagination="pagination"
+          @page-prev="pagePrev"
+          @page-next="pageNext"
+        ></page-item>
         <!-- Modal -->
 
         <div
