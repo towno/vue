@@ -74,7 +74,7 @@
           </tr>
         </table>
         <!-- 頁碼元件 -->
-        <page-item></page-item>
+        <page-item :comcurrent-page="currentPage"></page-item>
         <!-- Modal -->
 
         <div
@@ -107,12 +107,12 @@
                     <div class="form-group">
                       <label for="imageUrl">主要圖片</label>
                       <input
-                        v-model="tempProduct.imageUrl"
+                        v-model="tempProduct.data.imageUrl"
                         type="text"
                         class="form-control"
                         placeholder="請輸入圖片連結"
                       />
-                      <img class="img-fluid" :src="tempProduct.imageUrl" />
+                      <img class="img-fluid" :src="tempProduct.data.imageUrl" />
                     </div>
                     <div class="mb-1">多圖新增</div>
                     <div v-if="Array.isArray(tempProduct.data.imagesUrl)">

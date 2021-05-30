@@ -4,8 +4,12 @@ const apiPath = "taonong";
 let productModal = null;
 let delProductModal = null;
 const pageItem = {
-    data() {
-        return {}
+    props: ['comcurrentPage'],
+    dtat() {
+        return { currentPage: 0 }
+    },
+    created() {
+        this.currentPage = this.comcurrentPage;
     },
     template: `<nav aria-label="Page navigation example">
     <ul class="pagination">
@@ -13,7 +17,7 @@ const pageItem = {
         <a class="page-link" href="#" aria-label="Previous"
           ><span aria-hidden="true">«</span></a
         >
-      </li>2
+      </li>{{currentPage}}
       <li class="page-item disabled">
         <a class="page-link" href="#" aria-label="Next"
           ><span aria-hidden="true">»</span></a
@@ -22,7 +26,7 @@ const pageItem = {
     </ul>
   </nav>`
 };
-createApp({
+const app = createApp({
     data() {
         return {
             products: [],
@@ -30,13 +34,11 @@ createApp({
             detailProductId: "",
             processType: "",
             product: { data: { title: "", category: "", unit: "", origin_price: 0, price: 0, description: "", content: "", is_enabled: "", imagesUrl: [] } },
-            tempProduct: { data: { title: "", category: "", unit: "", origin_price: 0, price: 0, description: "", content: "", is_enabled: "", imagesUrl: [] } }
+            tempProduct: { data: { title: "", category: "", unit: "", origin_price: 0, price: 0, description: "", content: "", is_enabled: "", imagesUrl: [] } },
+            currentPage: 1,
+            targetPage: 1
         }
     },
-    components: {
-        pageItem
-    }
-    ,
     methods: {
         processProductMethod(e, productId) {
             this.processType = e.target.getAttribute("data-type");
@@ -65,14 +67,17 @@ createApp({
             switch (this.processType) {
                 case "delProduct":
                     this.delProductId = "";//將欲刪除商品編號清空
+                    this.resetData();//清空資料
                     break;
                 case "editProduct":
                     this.detailProductId = "";
                     this.tempProduct.data = "";
+                    this.resetData();//清空資料
                     break;
                 case "addProduct":
                     this.detailProductId = "";
                     this.tempProduct.data = "";
+                    this.resetData();//清空資料
                     break;
                 default:
 
@@ -82,7 +87,6 @@ createApp({
             const url = `${apiUri}/${apiPath}/admin/product/${this.delProductId}`;
             if (this.delProductId) {
                 //刪除單一商品API
-
                 axios.delete(`${url}`).then(res => {
                     if (res.data.success) {
                         this.getDataMethod();
@@ -96,14 +100,10 @@ createApp({
             }
         },
         getDataMethod() {//取得產品列表
-            const page = 1;
-            const url = `${apiUri}/${apiPath}/admin/products?page=${page}`;
-
+            const url = `${apiUri}/${apiPath}/admin/products?page=${this.targetPage}`;
             axios.get(`${url}`).then(res => {
-
                 if (res.data.success) {
                     this.products = res.data.products;
-
                 } else {
                     alert(res.data.messages);
                     if (res.data.messages == "驗證錯誤, 請重新登入") {
@@ -122,7 +122,6 @@ createApp({
                     this.addProductMethod();
                     break;
                 default:
-
             };
 
         },
@@ -130,16 +129,20 @@ createApp({
             const url = `${apiUri}/${apiPath}/admin/product/${this.detailProductId}`;
             if (this.detailProductId) {
                 this.product = { ...this.tempProduct };
+                // 將『價格』文字轉成數值
+                this.product.data.price = Number(this.product.data.price);
+                // 將『價格』文字轉成數值
+                this.product.data.origin_price = Number(this.product.data.origin_price);
+
                 //編輯單一商品API
                 axios.put(`${url}`, this.product).then(res => {
                     if (res.data.success) {
                         this.getDataMethod();
                         productModal.hide();
-                        this.tempProduct.data = {};
-                        this.product.data = {};
+                        this.resetData();//清空資料
+
                     } else {
                         alert(res.data.message);
-                        productModal.hide();
                         this.product.data = {};
                     }
                 });
@@ -149,27 +152,30 @@ createApp({
         addProductMethod() {//新增商品API
             this.product.data = { ...this.tempProduct.data };
             const url = `${apiUri}/${apiPath}/admin/product`;
+            // 將『價格』文字轉成數值
             this.product.data.price = Number(this.product.data.price);
+            // 將『價格』文字轉成數值
             this.product.data.origin_price = Number(this.product.data.origin_price);
             axios.post(`${url}`, this.product).then(res => {
                 if (res.data.success) {
                     alert(res.data.message);
                     this.getDataMethod();
                     productModal.hide();
-                    this.product.data = {};
-                    this.tempProduct.data = {};
+                    this.resetData();//清空資料
                 } else {
                     alert(res.data.message);
-                    productModal.hide();
                     this.product.data = {};
                 }
             });
+        },
+        resetData() {//清空資料
+            this.product.data = {};
+            this.product.data.imagesUrl = [];
+            this.tempProduct.data = {};
+            this.tempProduct.data.imagesUrl = [];
         }
     },
     createImages() {
-        console.log("createImages");
-        // this.tempProduct.imagesUrl = [];
-        // this.tempProduct.imagesUrl.push('');
     },
     mounted() {
         //處理產品(新增/編輯)的Modal
@@ -189,4 +195,8 @@ createApp({
         axios.defaults.headers.common.Authorization = token;
         this.getDataMethod();
     }
-}).mount('#app');
+});
+
+app.component('page-item', pageItem);
+app.mount('#app');
+
