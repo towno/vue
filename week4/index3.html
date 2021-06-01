@@ -12,7 +12,7 @@
   <div id="app" data-v-app>
     <div class="container">
       <div class="text-end mt-4">
-        <button @click="processProductMethod($event,'')" data-type="addProduct" type="button" class="btn btn-primary"
+        <button @click:prevent="processProductMethod($event,'')" data-type="addProduct" type="button" class="btn btn-primary"
           data-bs-toggle="modal" data-bs-target="#productModal">
           建立新的產品
         </button>
@@ -39,11 +39,11 @@
           </td>
           <td class="w120">
             <div class="btn-group">
-              <button @click="processProductMethod($event,item.id)" data-type="editProduct" type="button"
+              <button @click:prevent="processProductMethod($event,item.id)" data-type="editProduct" type="button"
                 class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#productModal">
                 編輯
               </button>
-              <button @click="processProductMethod($event,item.id)" data-type="delProduct" type="button"
+              <button @click:prevent="processProductMethod($event,item.id)" data-type="delProduct" type="button"
                 class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delProductModal">
                 刪除
               </button>
@@ -86,13 +86,13 @@
                     <div
                       v-if="!tempProduct.data.imagesUrl.length || tempProduct.data.imagesUrl[tempProduct.data.imagesUrl.length - 1]">
                       <button class="btn btn-outline-primary btn-sm d-block w-100"
-                        @click="tempProduct.data.imagesUrl.push('')">
+                        @click:prevent="tempProduct.data.imagesUrl.push('')">
                         新增圖片
                       </button>
                     </div>
                     <div v-else>
                       <button class="btn btn-outline-danger btn-sm d-block w-100"
-                        @click="tempProduct.data.imagesUrl.pop()">
+                        @click:prevent="tempProduct.data.imagesUrl.pop()">
                         刪除圖片
                       </button>
                     </div>
@@ -210,7 +210,7 @@
       </a>
     </li>
     <li @click="emitgoPage(item)" v-for="(item,index) in pagination.total_pages" class="page-item" :key="index" :class="{'active':item===pagination.current_page}"><a class="page-link active" href="#">{{item}}</a></li>
-    <li class="page-item" @click="emitNext" v-if="pagination.has_next">
+    <li class="page-item" @click:prevent="emitNext" v-if="pagination.has_next">
       <a class="page-link" href="#" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
