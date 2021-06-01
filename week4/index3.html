@@ -204,12 +204,12 @@
 <script type="text/x-template" id="pagination">
 <nav aria-label="Page navigation example">
   <ul class="pagination">
-    <li class="page-item" @click="emitPrev" v-if="pagination.has_pre">
+    <li class="page-item" @click:prevent="emitPrev" v-if="pagination.has_pre">
       <a class="page-link" href="#" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
-    <li @click="emitgoPage(item)" v-for="(item,index) in pagination.total_pages" class="page-item" :key="index" :class="{'active':item===pagination.current_page}"><a class="page-link active" href="#">{{item}}</a></li>
+    <li @click:prevent="emitgoPage(item)" v-for="(item,index) in pagination.total_pages" class="page-item" :key="index" :class="{'active':item===pagination.current_page}"><a class="page-link active" href="#">{{item}}</a></li>
     <li class="page-item" @click:prevent="emitNext" v-if="pagination.has_next">
       <a class="page-link" href="#" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
