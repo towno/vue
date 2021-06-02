@@ -1,0 +1,63 @@
+.img-w110 {
+    max-width: 110px;
+    height: auto;
+}
+.nav-style {
+    display: flex;
+}
+.img-w600 {
+    max-width: 600px;
+    height: auto;
+}
+
+.img-w100 {
+    max-width: 100px;
+    height: auto;
+    width: 100%;
+}
+
+.top-hr-style {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+}
+.bg-style {
+    background-color: #f8f9fa;
+}
+
+.nav-link,
+.nav-link:focus,
+.nav-link:hover {
+    color: #636057;
+}
+
+a.active {
+    font-weight: bold;
+}
+.fa.fa-facebook,
+.fa.fa-twitter {
+    font-family: "Font Awesome 5 Brands";
+    font-weight: 400;
+}
+.fa.fa-facebook:before {
+    content: "\f39e";
+}
+.wh96-38 {
+    width: 96px;
+    height: 38px;
+}
+.w100percent {
+    width: 100%;
+}
+.border-radius-125 {
+    border-radius: 1.25rem;
+}
+.material-icons-primary {
+    color: #ffdf65;
+}
+.icon-div-style {
+    display: flex;
+}
+
+.icon-div-item-style {
+    margin: 8px 0 0 8px;
+}
