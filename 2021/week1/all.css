@@ -120,7 +120,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 table {
@@ -149,6 +149,12 @@ body {
   height: auto;
 }
 
+.pt-0 {
+  padding-bottom: 0;
+}
+.mt-0 {
+  margin-bottom: 0;
+}
 .mr-2 {
   margin-right: 16px;
 }
@@ -170,7 +176,7 @@ body {
 .mb-4 {
   margin-bottom: 32px;
 }
-.pt-5 {
+.pb-5 {
   padding-bottom: 40px;
 }
 .mt-5 {
@@ -204,6 +210,7 @@ body {
   background-color: #415165;
   height: auto;
   font-size: 24px;
+  width: 100%;
 }
 .skill {
   margin: 0 auto;
@@ -225,7 +232,7 @@ body {
   border-left: #96a9c4 1px solid;
 }
 .skill-list-ul li {
-  line-height: 24px;
+  line-height: 48px;
 }
 .footer-hr {
   width: 1200px;
@@ -235,4 +242,23 @@ body {
 .experience {
   width: 1200px;
   margin: 0 auto;
+  margin-top: 72px;
+  margin-bottom: 72px;
+}
+
+.contact {
+  margin: 0 auto;
+  margin-top: 72px;
+  margin-bottom: 72px;
+}
+.contact > .content,
+.experience > .content {
+  border-left: #96a9c4 1px solid;
+  padding-left: 24px;
+  margin-left: 24px;
+  width: 650px;
+}
+.contact > .content li,
+.experience > .content li {
+  line-height: 24px;
 }
