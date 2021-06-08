@@ -224,8 +224,13 @@ body {
   background-color: #fff;
 }
 .skill-list {
-  max-width: 250px;
+  min-width: 200px;
   margin: 0 auto;
+  line-height: 36px;
+}
+
+.skill-list > ul {
+  font-size: 24px;
 }
 
 .skill-list-ul {
@@ -261,4 +266,13 @@ body {
 .contact > .content li,
 .experience > .content li {
   line-height: 24px;
+}
+.sns-div {
+  display: flex;
+  justify-content: center;
+}
+.sns-div img {
+  min-width: 48px;
+  height: auto;
+  margin-left: 24px;
 }
