@@ -61,3 +61,7 @@ a.active {
 .icon-div-item-style {
     margin: 8px 0 0 8px;
 }
+img {
+    border-radius: 10%;
+}
+
