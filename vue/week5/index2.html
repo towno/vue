@@ -28,16 +28,47 @@
 
           <tbody>
             <tr v-for="item in products" :key="item.id">
-              <td class="w-25">{{item.title}}</td>
-              <td class="w-25">{{item.title}}</td>
               <td class="w-25">
                 <div class="productImage" :style="{backgroundImage: `url(${item.imageUrl})`}"></div>
               </td>
               <td class="w-25">{{item.title}}</td>
+              <td class="w-25">
+                <div class="h5"><span class="h6">原價</span> <del class="h6"> NT${{item.origin_price}}</del></div>
+                <div class="h5">現在只要 NT${{item.price}}</div>
+              </td>
+              <td>
+                <div class="btn-group btn-group-sm"><button type="button" class="btn btn-outline-secondary"
+                    @click="getProduct(item.id)"><i v-if="loadingStatus.loadingItem===item.id"
+                      class="fas fa-spinner fa-pulse"></i>查看更多</button>
+
+                  <button type="button" class="btn btn-outline-danger"><i v-if="loadingStatus.loadingItem===item.id"
+                      class="fas fa-spinner fa-pulse"></i>加到購物車</button> </div>
+              </td>
             </tr>
           </tbody>
         </table>
         <!-- 購物車列表 -->
+        <div class="text-end"><button class="btn btn-outline-danger">清空購物車</button></div>
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th></th>
+              <th>品名</th>
+              <th>數量/單位</th>
+              <th>單價</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template>
+              <tr>
+                <td><button class="btn btn-outline-danger btn-sm"><i class="fas fa-spinner fa-pulse">x</i></button></td>
+                <td><button class="btn btn-outline-danger btn-sm"><i class="fas fa-spinner fa-pulse">x</i></button></td>
+                <td><button class="btn btn-outline-danger btn-sm"><i class="fas fa-spinner fa-pulse">x</i></button></td>
+                <td><button class="btn btn-outline-danger btn-sm"><i class="fas fa-spinner fa-pulse">x</i></button></td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

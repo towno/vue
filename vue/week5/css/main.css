@@ -1,6 +1,6 @@
 .productImage {
-  width: auto;
   height: 100px;
-  background-position: center;
+  width: 77px;
   background-size: cover;
+  background-position: center center;
 }
