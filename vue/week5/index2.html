@@ -42,7 +42,8 @@
                       class="fas fa-spinner fa-pulse"></i>查看更多</button>
 
                   <button type="button" class="btn btn-outline-danger"><i v-if="loadingStatus.loadingItem===item.id"
-                      class="fas fa-spinner fa-pulse"></i>加到購物車</button> </div>
+                      class="fas fa-spinner fa-pulse"></i>加到購物車</button>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -92,19 +93,33 @@
               rules="email|required" placeholder="請輸入 Email" v-model="form.user.email">
             </v-field>
             <error-message name="email" class="invalid-feedback"></error-message>
-            <div class="mb-3">
-              <label for="name" class="form-label">
-                收件人姓名</label>
-              <v-field id="name" name="姓名" type="text" class="form-control" :class="{'is-invalid':errors['姓名']}"
-                placeholder="請輸入姓名" rules="required" v-model="form.user.name"></v-field>
-              <error-message name="姓名" class="invalid-feedback"></error-message>
-            </div>
+          </div>
 
-            <div class="mb-3"><label for="tel" class="form-label">收件人電話</label>
-              <v-field id="tel" name="電話" type="text" class="form-control" :class="{'is-invalid':errors['電話']}"
-                placeholder="請輸入電話" rules="required|min:8|max:10" v-model="form.user.tel"></v-field>
-              <error-message name="電話" class="invalid-feedback"></error-message>
-            </div>
+          <div class="mb-3">
+            <label for="name" class="form-label">
+              收件人姓名</label>
+            <v-field id="name" name="姓名" type="text" class="form-control" :class="{'is-invalid':errors['姓名']}"
+              placeholder="請輸入姓名" rules="required" v-model="form.user.name"></v-field>
+            <error-message name="姓名" class="invalid-feedback"></error-message>
+          </div>
+
+          <div class="mb-3"><label for="tel" class="form-label">收件人電話</label>
+            <v-field id="tel" name="電話" type="text" class="form-control" :class="{'is-invalid':errors['電話']}"
+              placeholder="請輸入電話" rules="required|min:8|max:10" v-model="form.user.tel"></v-field>
+            <error-message name="電話" class="invalid-feedback"></error-message>
+          </div>
+          <div class="mb-3">
+            <label for="address" class="form-label">地址</label>
+            <v-field id="address" name="地址" type="text" class="form-control" :class="{'is-invalid':errors['地址']}"
+              placeholder="請輸入地址" rules="required|min:4|max:100" v-model="form.user.address"></v-field>
+            <error-message name="地址" class="invalid-feedback"></error-message>
+          </div>
+
+          <div class="mb-3">
+            <label for="message" class="form-label">留言</label>
+            <textarea class="form-control" name="留言" id="message" col="8" row="3" type="textarea" v-model="form.message"
+              :class="{'is-invalid':errors['留言']}" placeholder="請輸入留言" rules="required"></textarea>
+            <error-message name="留言" class="invalid-feedback"></error-message>
           </div>
           <div class="text-end"><button type="submit" class="btn btn-danger">送出訂單</button></div>
         </v-form>
