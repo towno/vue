@@ -15,7 +15,7 @@
 
           <tbody>
             <tr v-for="item in products" :key="item.id">
-              <td class="w-25">
+              <td class="w-25 imageColumn">
                 <div class="productImage" :style="{backgroundImage: `url(${item.imageUrl})`}"></div>
               </td>
               <td class="w-25">{{item.title}}</td>
@@ -36,7 +36,7 @@
                     <i v-if="loadingStatus.loadingItem===item.id" class="fas fa-spinner fa-pulse"></i>查看更多
                   </button>
 
-                  <button type="button" class="btn btn-outline-danger">
+                  <button type="button" @click="addCarts(item.id)" class="btn btn-outline-danger">
                     <i v-if="loadingStatus.loadingItem===item.id" class="fas fa-spinner fa-pulse"></i>加到購物車
                   </button>
                 </div>
@@ -100,36 +100,80 @@ import UserProductModal from "@/components/UserProductModal.vue";
 export default {
   name: "Products",
   data() {
-     return {
-            loadingStatus: {
-                loadingItem: '',
-            },
-            products: [],
-            cart: { carts: [] },
-            form: {
-                user: {
-                    name: '',
-                    email: '',
-                    tel: '',
-                    address: '',
-                },
-                message: '',
-            },
-        }
+    return {
+      loadingStatus: {
+        loadingItem: ""
+      },
+      products: [],
+      cart: { carts: [] },
+      form: {
+        user: {
+          name: "",
+          email: "",
+          tel: "",
+          address: ""
+        },
+        message: ""
+      }
+    };
   },
-  methods: {},
+  methods: {
+    // 獲得商品清單
+    getProducts() {
+      let url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products`;
+      this.$http.get(url).then(res => {
+        if (res.data.success) {
+          this.products = res.data.products;
+        }
+      });
+    },
+    // 新增商品到購物車
+    addCarts(id, qty = 1) {
+      let url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
+      this.loadingStatus.loadingItem = id;
+      const cart = {
+        product_id: id,
+        qty
+      };
+      this.$http.post(url, { data: cart }).then(res => {
+        console.log("res~~~", res);
+        this.loadingStatus.loadingItem = null;
+        this.getCarts();
+      });
+    },
+    //獲得購物車清單
+    getCarts() {
+      let url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
+      this.$http.get(url).then(res => {
+        this.cart = res.data.data;
+        console.log("this.cart.carts~~", this.cart.carts);
+      });
+    },
+    //刪除購物車商品
+    removeCartItem(id) {
+      // console.log("id~~", id);
+    },
+    // 清空購物車
+    deleteAllCarts() {
+      // console.log("deleteAllCarts");
+    }
+  },
   mounted() {
-    const test = `${process.env.VUE_APP_API}`;
-    console.log("test~", test);
+    this.getProducts();
   },
   components: { UserProductModal }
 };
 </script>
 <style>
 .productImage {
-  height: 100px;
-  width: 77px;
-  background-size: cover;
+  width: 53%;
+  height: 0;
+  padding-top: 68%;
+  background: #fff;
+  background-size: contain;
   background-position: center center;
+}
+.imageColumn {
+  text-align: -webkit-center;
 }
 </style>
