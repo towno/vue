@@ -136,7 +136,6 @@ export default {
         qty
       };
       this.$http.post(url, { data: cart }).then(res => {
-        console.log("res~~~", res);
         this.loadingStatus.loadingItem = null;
         this.getCarts();
       });
@@ -146,7 +145,6 @@ export default {
       let url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
       this.$http.get(url).then(res => {
         this.cart = res.data.data;
-        console.log("this.cart.carts~~", this.cart.carts);
       });
     },
     //刪除購物車商品
@@ -159,7 +157,10 @@ export default {
     }
   },
   mounted() {
+    //取得產品列表
     this.getProducts();
+    //取得購物車列表
+    this.getCarts();
   },
   components: { UserProductModal }
 };
