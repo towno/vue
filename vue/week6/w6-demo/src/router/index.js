@@ -20,6 +20,11 @@ const routes = [
     name: 'Products',
     component: () => import('../views/Products.vue'),
   },
+  {
+    path: '/adminLogin',
+    name: 'AdminLogin',
+    component: () => import('../views/AdminLogin.vue'),
+  },
 ];
 
 const router = createRouter({
