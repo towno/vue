@@ -23,11 +23,11 @@ const routes = [
   // DashBoard Pages
   {
     path: '/admin',
-    component: () => import('../views/Dashboard.vue'),
+    component: () => import('../views/admin/Dashboard.vue'),
     children: [
       {
         path: 'products',
-        component: () => import('../views/AdminProducts.vue'),
+        component: () => import('../views/admin/AdminProducts.vue'),
       }
     ],
   }
