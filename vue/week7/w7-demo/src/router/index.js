@@ -28,6 +28,10 @@ const routes = [
       {
         path: 'products',
         component: () => import('../views/admin/AdminProducts.vue'),
+      },
+      {
+        path: 'login',
+        component: () => import('../views/admin/AdminLogin.vue'),
       }
     ],
   }

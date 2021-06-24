@@ -1,5 +1,5 @@
 <template>
-  <router-view/>
+  <router-view />
 </template>
 <script>
 import UserProductModal from "@/components/UserProductModal.vue";
@@ -40,11 +40,36 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    //驗證登入
+    checkToken() {
+      console.log("1442323");
+      let url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/check
+      `;
+      const token = document.cookie.replace(
+        /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
+        "$1"
+      );
+      if (token) {
+        this.$http.defaults.headers.common.Authorization = `${token}`;
+        this.$http.post(url, { api_token: token }).then(res => {
+          if (res.data.success) {
+            //驗證成功
+            this.$router.push("/admin/products");
+          } else {
+            //驗證失敗
+            this.$router.push("/admin/login");
+          }
+        });
+      }
+
+      // this.$router.push("/admin/products");
     }
   },
   mounted() {
-    console.log("1212sdsdadwa");
-    this.$router.push("/admin/products");
+    this.checkToken();
+    // console.log("1212sdsdadwa");
+    // this.$router.push("/admin/products");
   },
   components: { UserProductModal }
 };

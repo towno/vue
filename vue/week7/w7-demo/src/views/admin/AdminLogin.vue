@@ -78,7 +78,7 @@ export default {
   },
   mounted() {
     console.log("144");
-    this.$router.push("/admin/products");
+    // this.$router.push("/admin/products");
   },
   components: { UserProductModal }
 };
