@@ -156,7 +156,6 @@ export default {
     }
   },
   mounted() {
-    console.log("wee31123");
     //取得產品列表
     this.getProducts();
     //取得購物車列表

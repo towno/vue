@@ -21,7 +21,6 @@ export default {
       this.$http
         .post(`${domain}${apiUri}`, this.user)
         .then(res => {
-          console.log("res~~~", res);
           if (res.data.success) {
             this.user.username = "";
             this.user.password = "";
@@ -32,7 +31,6 @@ export default {
               expired
             )}; path=/`;
             this.$router.push("/admin/products");
-            console.log("sdsd");
           } else {
             alert(res.data.message);
           }
@@ -43,13 +41,12 @@ export default {
     },
     //驗證登入
     checkToken() {
-      console.log("1442323");
-      let url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/check
-      `;
+      let url = `${process.env.VUE_APP_API}api/user/check`;
       const token = document.cookie.replace(
         /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
         "$1"
       );
+
       if (token) {
         this.$http.defaults.headers.common.Authorization = `${token}`;
         this.$http.post(url, { api_token: token }).then(res => {
@@ -61,6 +58,9 @@ export default {
             this.$router.push("/admin/login");
           }
         });
+      } else {
+        //驗證失敗
+        this.$router.push("/admin/login");
       }
 
       // this.$router.push("/admin/products");
@@ -68,8 +68,10 @@ export default {
   },
   mounted() {
     this.checkToken();
-    // console.log("1212sdsdadwa");
     // this.$router.push("/admin/products");
+  },
+  updated() {
+    this.checkToken();
   },
   components: { UserProductModal }
 };
