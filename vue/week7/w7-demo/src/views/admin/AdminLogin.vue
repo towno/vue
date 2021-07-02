@@ -33,7 +33,7 @@
     </div>
     <p class="mt-5 mb-3 text-muted">© 2021~∞ - Carol</p>
   </div>
-  <router-view/>
+  <router-view />
 </template>
 <script>
 import UserProductModal from "@/components/UserProductModal.vue";
@@ -55,7 +55,6 @@ export default {
       this.$http
         .post(`${domain}${apiUri}`, this.user)
         .then(res => {
-          console.log("res~~~", res);
           if (res.data.success) {
             this.user.username = "";
             this.user.password = "";
@@ -65,8 +64,8 @@ export default {
             document.cookie = `hexToken=${token};expires=${new Date(
               expired
             )}; path=/`;
-            this.$router.push("/admin/products");
-            console.log("sdsd");
+            console.log("token~~212~~", token);
+            // this.$router.push("/admin/products");
           } else {
             alert(res.data.message);
           }
@@ -77,7 +76,6 @@ export default {
     }
   },
   mounted() {
-    console.log("144");
     // this.$router.push("/admin/products");
   },
   components: { UserProductModal }
