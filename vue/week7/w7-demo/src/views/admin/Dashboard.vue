@@ -1,4 +1,8 @@
 <template>
+  <div id="nav">
+    <router-link to="/">後台登入</router-link>|
+    <router-link to="/admin">後台登入</router-link>
+  </div>
   <router-view />
 </template>
 <script>
