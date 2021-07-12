@@ -1,6 +1,9 @@
 .mb-1 {
   margin-bottom: 8px;
 }
+.mt-1 {
+  margin-top: 8px;
+}
 .pb-1 {
   padding-bottom: 8px;
 }
@@ -99,10 +102,6 @@
   margin-bottom: 36px;
 }
 
-.skill-content li {
-  margin-bottom: 20px;
-}
-
 .work > .descript {
   border-left: 1px solid #96a9c4;
   padding-left: 24px;
@@ -110,4 +109,16 @@
 }
 .work > ul > li {
   margin-bottom: 24px;
+}
+
+.contact-content {
+  line-height: 1;
+  margin-bottom: 36px;
+}
+
+.footer {
+  text-align: center;
+}
+.flex-center {
+  justify-content: center;
 }
