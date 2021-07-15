@@ -13,7 +13,7 @@ img {
 .container {
     margin: 0 auto;
     text-align: center;
-    width: 1200px;
+    /* width: 1200px; */
 }
 .banner {
     background-image: url("https://hexschool.github.io/webLayoutTraining1st/week2/banner.png");
@@ -36,6 +36,9 @@ img {
 }
 .fs-10 {
     font-size: 80px;
+}
+.mb-8 {
+    margin-bottom: 64px;
 }
 .fs-8 {
     font-size: 64px;
@@ -64,6 +67,9 @@ img {
 .pt-3 {
     padding-top: 24px;
 }
+.fs-2-2 {
+    font-size: 20px;
+}
 .fs-2 {
     font-size: 16px;
 }
@@ -80,8 +86,8 @@ img {
 .mb-5 {
     margin-bottom: 40px;
 }
-.mt-6 {
-    margin-top: 56px;
+.pt-6 {
+    padding-top: 56px;
 }
 .mr-1 {
     margin-right: 8px;
@@ -91,6 +97,9 @@ img {
 }
 .mr-2 {
     margin-right: 16px;
+}
+.mb-2 {
+    margin-bottom: 16px;
 }
 .italic {
     font-style: italic;
@@ -139,10 +148,27 @@ img {
     font-size: 24px;
 }
 
-.about ul {
+.about > ol {
     border-top: 1px solid #000;
-    list-style-type: disc;
 }
+
+ol li {
+    counter-increment: my-awesome-counter;
+    margin: 0.25rem;
+}
+ol li::before {
+    list-style: none;
+    content: counter(my-awesome-counter);
+    background: #891818 0% 0% no-repeat padding-box;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    display: inline-block;
+    color: transparent;
+    text-align: center;
+    margin-right: 0.5rem;
+}
+
 h2 {
     font-size: 64px;
     font-style: italic;
@@ -152,4 +178,28 @@ h2 {
 
 h3 {
     font-size: 24px;
+}
+
+.back-bg {
+    background-color: #000000;
+    text-align: center;
+    margin: auto;
+    width: 100%;
+}
+.brand {
+    color: #ffffff;
+    width: 1200px;
+}
+
+.brand p {
+    font-size: 20px;
+    line-height: 1.5;
+}
+.brand-img {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.brand-img > image {
+    margin-bottom: 10px;
 }
