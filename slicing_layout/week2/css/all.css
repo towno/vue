@@ -13,7 +13,8 @@ img {
 .container {
     margin: 0 auto;
     text-align: center;
-    /* width: 1200px; */
+    max-width: 1200px;
+    padding:0 15px;
 }
 .banner {
     background-image: url("https://hexschool.github.io/webLayoutTraining1st/week2/banner.png");
@@ -197,7 +198,7 @@ h3 {
     color: #ffffff;
 }
 .brand {
-    width: 1200px;
+   
 }
 
 .brand p {
