@@ -74,8 +74,15 @@ nav > ul > li a {
 .f-8 {
     font-size: 64px;
 }
+.mr-3 {
+    margin-right: 24px;
+}
 .f-4 {
     font-size: 32px;
+}
+
+.ml-4 {
+    margin-left: 32px;
 }
 .mb-3 {
     margin-bottom: 24px;
@@ -94,8 +101,9 @@ nav > ul > li a {
     max-width: 1110px;
     margin: 0 auto;
 }
+
 .banner {
-    width: 1110px;
+    width: 100%;
     margin: 0 0 0 auto;
 }
 .bold {
@@ -103,6 +111,9 @@ nav > ul > li a {
 }
 .mb-2 {
     margin-bottom: 16px;
+}
+.ml-2 {
+    margin-left: 16px;
 }
 .title {
     font-size: 64px;
@@ -131,6 +142,7 @@ nav > ul > li a {
     max-width: 255px;
     font-size: 16px;
     line-height: 1.5;
+    text-align: left;
 }
 .icon-list {
     display: flex;
@@ -145,6 +157,7 @@ nav > ul > li a {
     align-items: center;
     justify-content: center;
 }
+
 .product-list {
     /* display: flex;
     flex-wrap: wrap; */
@@ -175,10 +188,6 @@ nav > ul > li a {
     width: 635px;
 }
 @media (max-width: 1110px) {
-    .banner {
-        max-width: 1110px;
-        padding-right: 20px;
-    }
 }
 @media (max-width: 768px) {
     .header {
@@ -203,9 +212,6 @@ nav > ul > li a {
     }
     .sub-title {
         font-size: 20px;
-    }
-    .banner {
-        max-width: 691px;
     }
 }
 
@@ -264,10 +270,7 @@ nav > ul > li a {
     .sub-title {
         font-size: 20px;
     }
-    .banner {
-        max-width: 691px;
-        padding-right: 15px;
-    }
+
     .d-block {
         max-width: 48px;
         height: auto;
@@ -280,4 +283,21 @@ nav > ul > li a {
     .sub-title {
         font-size: 16px;
     }
+}
+
+.product {
+    padding-top: 60px;
+}
+.product-icon {
+    width: 32px !important;
+    height: 32px;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.design {
+    background-image: url("../images/bg.png");
+    height: 200px;
 }
