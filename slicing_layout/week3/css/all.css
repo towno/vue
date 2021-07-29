@@ -2,6 +2,9 @@ img {
     max-width: 100%;
     height: auto;
 }
+a {
+    text-decoration: none;
+}
 .d-block {
     display: block;
 }
@@ -14,6 +17,15 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.white {
+    color: white;
+}
+.dark-color {
+    color: #212529;
+}
+.dark-color a {
+    color: #212529;
 }
 nav > ul {
     color: #fff;
@@ -71,11 +83,21 @@ nav > ul > li a {
 .mb-6 {
     margin-bottom: 48px;
 }
+.m-5 {
+    margin-bottom: 40px;
+}
 .f-8 {
     font-size: 64px;
 }
+
+.f-9 {
+    font-size: 72px;
+}
 .mr-3 {
     margin-right: 24px;
+}
+.mr-3-1 {
+    margin-right: 30px;
 }
 .f-4 {
     font-size: 32px;
@@ -88,6 +110,9 @@ nav > ul > li a {
     margin-bottom: 24px;
 }
 
+.pt-7-1 {
+    padding-top: 60px;
+}
 .mb-1 {
     margin-bottom: 8px;
 }
@@ -103,9 +128,9 @@ nav > ul > li a {
 }
 
 .banner {
-    width: 100%;
-    margin: 0 0 0 auto;
+    min-width: 1110px;
 }
+
 .bold {
     font-weight: 500;
 }
@@ -131,7 +156,6 @@ nav > ul > li a {
 }
 .about {
     text-align: center;
-    padding-top: 60px;
 }
 
 .about > ul > li > h3 {
@@ -187,7 +211,113 @@ nav > ul > li a {
 .product-list > ul > li > img {
     width: 635px;
 }
-@media (max-width: 1110px) {
+
+.product {
+    padding-top: 60px;
+}
+.product-icon {
+    width: 32px !important;
+    height: 32px;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.design {
+    background-image: url("../images/bg.png");
+    height: 705px;
+    background-position: center center;
+    background-size: cover;
+}
+.design-list {
+    display: flex;
+    justify-content: space-between;
+}
+/* .design-list h3 {
+    color: #aa0601;
+    position: relative;
+    text-align: center;
+    top: -50%;
+} */
+.design-list .mask {
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: -201%;
+}
+
+.design-list,
+.design-list a {
+    height: 455px;
+}
+.design-list h3 {
+    height: 455px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aa0601;
+    position: relative;
+    top: -100%;
+}
+.design-list img {
+    height: 455px;
+}
+.customer ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+.customer li {
+    margin: 30px;
+}
+.customer img {
+    max-width: 255px;
+    height: auto;
+}
+.customer-list {
+    border: 1px solid #dee2e6;
+    box-shadow: -3px -3px 9px #00000029;
+    height: 460px;
+}
+.zIndex-1 {
+    z-index: 1;
+}
+.customer-list-content {
+    display: flex;
+    flex-wrap: wrap;
+    height: -webkit-fill-available;
+    padding: 16px 16px 0 16px;
+}
+.customer-list-content p {
+    line-height: 1.5;
+    height: 204px;
+}
+.customer-list-content p span {
+    display: block;
+}
+.customer-list-content p span {
+    margin-bottom: 8px;
+}
+@media (max-width: 1100px) {
+    .banner {
+        min-width: 100%;
+    }
+    .design-list img {
+        width: 330px;
+        height: auto;
+    }
+    .design-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .design-list .mask {
+        width: 330px;
+        height: 285px;
+        top: -164%;
+    }
 }
 @media (max-width: 768px) {
     .header {
@@ -203,7 +333,8 @@ nav > ul > li a {
         background-repeat: repeat;
         width: 100%;
         height: 840px;
-        background-position: center;
+        background-position: center center;
+        background-size: cover;
         display: flex;
         align-items: center;
     }
@@ -257,6 +388,8 @@ nav > ul > li a {
         background-image: url("../images/banner-sm.png");
         background-repeat: repeat;
         background-size: 375px 394px;
+        background-position: center center;
+        background-size: cover;
         width: 100vw;
         height: 394px;
         display: flex;
@@ -283,21 +416,4 @@ nav > ul > li a {
     .sub-title {
         font-size: 16px;
     }
-}
-
-.product {
-    padding-top: 60px;
-}
-.product-icon {
-    width: 32px !important;
-    height: 32px;
-}
-
-.italic {
-    font-style: italic;
-}
-
-.design {
-    background-image: url("../images/bg.png");
-    height: 200px;
 }
